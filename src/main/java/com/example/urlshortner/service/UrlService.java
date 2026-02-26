@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UrlService {
 
     private final UrlRepository repository;
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String BASE_URL = "https://vi0k-url-shortener-springboot.onrender.com/";
     private static final String BASE62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int SHORT_CODE_LENGTH = 6;
 
