@@ -2,11 +2,13 @@ package com.example.urlshortner.service;
 
 import com.example.urlshortner.entity.UrlMapping;
 import com.example.urlshortner.repository.UrlRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 public class UrlService {
 
     private final UrlRepository repository;
@@ -40,6 +42,7 @@ public class UrlService {
     }
     @Cacheable(value = "shortCodeCache", key = "#shortCode")
     public String getOriginalUrl(String shortCode) {
+        log.info("CACHE MISS - hitting DB for: {}", shortCode);
         return repository.findByShortCode(shortCode)
                 .map(UrlMapping->UrlMapping.getLongUrl())
                 .orElseThrow(() -> new RuntimeException("URL not found"));
