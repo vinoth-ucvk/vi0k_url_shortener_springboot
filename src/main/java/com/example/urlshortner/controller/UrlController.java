@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class UrlController {

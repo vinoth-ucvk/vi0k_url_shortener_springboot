@@ -2,6 +2,7 @@ package com.example.urlshortner.service;
 
 import com.example.urlshortner.entity.UrlMapping;
 import com.example.urlshortner.repository.UrlRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ public class UrlService {
     }
 
     @Transactional
+    @Cacheable(value = "longUrlCache", key = "#longUrl")
     public String shortenUrl(String longUrl) {
         return repository.findByLongUrl(longUrl)
                 .map(url -> BASE_URL + url.getShortCode())
@@ -36,10 +38,10 @@ public class UrlService {
                     return BASE_URL + shortCode;
                 });
     }
-
+    @Cacheable(value = "shortCodeCache", key = "#shortCode")
     public String getOriginalUrl(String shortCode) {
         return repository.findByShortCode(shortCode)
-                .map(UrlMapping::getLongUrl)
+                .map(UrlMapping->UrlMapping.getLongUrl())
                 .orElseThrow(() -> new RuntimeException("URL not found"));
     }
 

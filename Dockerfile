@@ -24,6 +24,6 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Step 8: Run the app
-CMD ["java", "-jar", "target/url_shortner-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/url_shortner-0.1.0-SNAPSHOT.jar"]
 
 
